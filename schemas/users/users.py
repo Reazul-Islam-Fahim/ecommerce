@@ -9,6 +9,7 @@ class UserSchema(BaseModel):
     phone: str
     dob: str
     gender: str
+    isChecked: bool
     role: Optional[str] 
     
     class Config:

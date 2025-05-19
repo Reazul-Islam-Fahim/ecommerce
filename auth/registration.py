@@ -22,7 +22,8 @@ async def register_user(db: Session, user: UserSchema) -> Users:
             phone=user.phone,
             dob = user.dob,
             gender = user.gender,
-            role=user.role
+            role=user.role,
+            isChecked=user.isChecked
         )
 
         db.add(new_user)

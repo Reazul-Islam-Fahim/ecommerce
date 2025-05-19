@@ -18,7 +18,8 @@ async def register(user: UserSchema, db: Session = Depends(get_db)):
         "gender": new_user.gender,
         "phone": new_user.phone,
         "id": new_user.id, 
-        "role": new_user.role
+        "role": new_user.role,
+        "isChecked": new_user.isChecked,
         }
 
     return return_data
