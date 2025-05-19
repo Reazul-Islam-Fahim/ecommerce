@@ -5,9 +5,9 @@ from schemas.users.users import UserSchema
 from fastapi import HTTPException
 from auth.security import hash_password
 
-async def register_user(db: Session, user: UserSchema) -> Users:
+def register_user(db: Session, user: UserSchema) -> Users:
     try:
-        existing_user = await db.query(Users).filter(Users.email == user.email).first()
+        existing_user = db.query(Users).filter(Users.email == user.email).first()
 
         if existing_user:
             raise HTTPException(
@@ -29,6 +29,7 @@ async def register_user(db: Session, user: UserSchema) -> Users:
         db.add(new_user)
         db.commit()
         db.refresh(new_user)
+        
         return new_user
 
     except SQLAlchemyError as e:

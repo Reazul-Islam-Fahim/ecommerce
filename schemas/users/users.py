@@ -9,8 +9,8 @@ class UserSchema(BaseModel):
     phone: str
     dob: str
     gender: str
-    isChecked: bool
-    role: Optional[str] 
+    isChecked: Optional[bool] = False
+    role: Optional[str] = "user"
     
     class Config:
         orm_mode = True

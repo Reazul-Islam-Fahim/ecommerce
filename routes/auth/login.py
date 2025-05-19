@@ -7,5 +7,5 @@ from database.db import get_db
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/login")
-async def login(user: LoginSchema, db: Session = Depends(get_db)):
-    return await login_user(db, user)
+def login(user: LoginSchema, db: Session = Depends(get_db)):
+    return login_user(db, user)

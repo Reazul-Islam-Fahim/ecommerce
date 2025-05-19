@@ -26,6 +26,6 @@ class Users(Base):
     role = Column(senum(roles), nullable=False, default=roles.user)
     is_active = Column(Boolean, nullable=False, default=True)
     is_verified = Column(Boolean, nullable=False, default=False)
-    is_checked = Column(Boolean, nullable=False, default=False)
+    isChecked = Column(Boolean, nullable=False, default=False)
     created_at = Column(String(50), nullable=False, server_default=func.now())
     updated_at = Column(String(50), nullable=False, server_default=func.now(), onupdate=func.now())
