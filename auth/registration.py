@@ -20,6 +20,8 @@ def register_user(db: Session, user: UserSchema) -> Users:
             email=user.email,
             password=hash_password(user.password),
             phone=user.phone,
+            dob = user.dob,
+            gender = user.gender,
             role=user.role
         )
 

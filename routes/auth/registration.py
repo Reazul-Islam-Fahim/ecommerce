@@ -14,6 +14,9 @@ def register(user: UserSchema, db: Session = Depends(get_db)):
     return_data = {
         "name": new_user.name,
         "email": new_user.email, 
+        "dob": new_user.dob,
+        "gender": new_user.gender,
+        "phone": new_user.phone,
         "id": new_user.id, 
         "role": new_user.role
         }

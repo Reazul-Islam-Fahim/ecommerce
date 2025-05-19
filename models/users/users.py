@@ -7,15 +7,22 @@ class roles(str, Enum):
     admin = "admin"
     user = "user"
     
+class genders(str, Enum):
+    M = 'M'
+    F = 'F'
+    O = 'O'
+    
 
 class Users(Base):
     __tablename__ = "users"
     
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String(50), nullable=False)
-    email = Column(String(50), unique=True, nullable=False)
+    email = Column(String(100), unique=True, nullable=False)
     password = Column(String(100), nullable=False)
     phone = Column(String(15), nullable=False)
+    dob = Column(String(15), nullable=False)
+    gender = Column(senum(genders), nullable=False)
     role = Column(senum(roles), nullable=False, default=roles.user)
     is_active = Column(Boolean, nullable=False, default=True)
     is_verified = Column(Boolean, nullable=False, default=False)

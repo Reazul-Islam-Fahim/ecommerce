@@ -7,6 +7,8 @@ class UserSchema(BaseModel):
     email: EmailStr
     password: str
     phone: str
+    dob: str
+    gender: str
     role: Optional[str] 
     
     class Config:

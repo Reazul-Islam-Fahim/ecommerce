@@ -19,6 +19,8 @@ def update_user(db: Session, id: int, user: UserSchema):
     db_user.email = user.email
     db_user.password = user.password
     db_user.phone = user.phone
+    db_user.dob = user.dob
+    db_user.gender = user.gender
     
     db.commit()
     db.refresh(db_user)
