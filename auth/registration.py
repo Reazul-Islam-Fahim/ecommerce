@@ -5,9 +5,9 @@ from schemas.users.users import UserSchema
 from fastapi import HTTPException
 from auth.security import hash_password
 
-def register_user(db: Session, user: UserSchema) -> Users:
+async def register_user(db: Session, user: UserSchema) -> Users:
     try:
-        existing_user = db.query(Users).filter(Users.email == user.email).first()
+        existing_user = await db.query(Users).filter(Users.email == user.email).first()
 
         if existing_user:
             raise HTTPException(

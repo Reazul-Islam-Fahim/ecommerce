@@ -5,9 +5,9 @@ from schemas.users.users import LoginSchema
 from fastapi import HTTPException
 from auth.security import verify_password, create_access_token
 
-def login_user(db: Session, user: LoginSchema) -> dict:
+async def login_user(db: Session, user: LoginSchema) -> dict:
     try:
-        db_user = db.query(Users).filter(Users.email == user.email).first()
+        db_user = await db.query(Users).filter(Users.email == user.email).first()
 
         if not db_user:
             raise HTTPException(status_code=404, detail="User not found")

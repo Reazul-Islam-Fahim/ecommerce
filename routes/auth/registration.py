@@ -7,9 +7,9 @@ from auth.registration import register_user
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/register")
-def register(user: UserSchema, db: Session = Depends(get_db)):
+async def register(user: UserSchema, db: Session = Depends(get_db)):
     
-    new_user = register_user(db, user)
+    new_user = await register_user(db, user)
     
     return_data = {
         "name": new_user.name,
