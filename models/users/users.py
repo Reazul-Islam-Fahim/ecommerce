@@ -1,7 +1,11 @@
-from sqlalchemy import Column, Integer, String, Boolean, Enum as senum, ForeignKey, Computed, func
+from sqlalchemy import Column, Integer, String, Boolean, Enum as senum, func
 from sqlalchemy.orm import relationship
-from database.db import Base
 from enum import Enum
+from sqlalchemy.ext.asyncio import AsyncAttrs
+from sqlalchemy.orm import DeclarativeBase
+
+class Base(AsyncAttrs, DeclarativeBase):
+    pass
 
 class roles(str, Enum):
     admin = "admin"

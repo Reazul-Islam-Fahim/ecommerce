@@ -1,14 +1,18 @@
-from sqlalchemy.orm import Session
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import SQLAlchemyError
 from models.users.users import Users
 from schemas.users.users import UserSchema
 from fastapi import HTTPException
 from auth.security import hash_password
 
-def register_user(db: Session, user: UserSchema) -> Users:
+async def register_user(db: AsyncSession, user: UserSchema) -> Users:
     try:
-        existing_user = db.query(Users).filter(Users.email == user.email).first()
-
+        result = await db.execute(
+            select(Users).where(Users.email == user.email)
+        )
+        existing_user = result.scalar_one_or_none()
+        
         if existing_user:
             raise HTTPException(
                 status_code=409,
@@ -20,27 +24,20 @@ def register_user(db: Session, user: UserSchema) -> Users:
             email=user.email,
             password=hash_password(user.password),
             phone=user.phone,
-            dob = user.dob,
-            gender = user.gender,
+            dob=user.dob,
+            gender=user.gender,
             role=user.role,
             isChecked=user.isChecked
         )
 
         db.add(new_user)
-        db.commit()
-        db.refresh(new_user)
+        await db.flush() 
         
         return new_user
 
     except SQLAlchemyError as e:
-        db.rollback()
+        await db.rollback()
         raise HTTPException(
             status_code=500,
             detail=f"Database error: {str(e)}"
-        )
-
-    except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail=f"Unexpected error: {str(e)}"
         )
